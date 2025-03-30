@@ -3,19 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./script.js"></script>
-    <link rel="stylesheet" href="./styles.css">
-    <title>3MTT</title>
+    <title>3MTT Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .calculator {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .display {
+            width: 93%;
+            height: 60px;
+            font-size: 2em;
+            text-align: right;
+            padding: 10px;
+            border: none;
+            background: #eaeaea;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            width: 100%;
+            height: 60px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 5px;
+            background: #ddd;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:active {
+            background: #bbb;
+        }
+        .equal {
+            background: #f39c12;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="calculator">
         <input type="text" class="display" disabled>
         <div class="buttons">
-            <button>7</button> <button id="seven" onclick="seven()">8</button> <button>9</button> <button>/</button>
+            <button>7</button> <button>8</button> <button>9</button> <button>/</button>
             <button>4</button> <button>5</button> <button>6</button> <button>*</button>
             <button>1</button> <button>2</button> <button>3</button> <button>-</button>
             <button>0</button> <button>C</button> <button class="equal">=</button> <button>+</button>
         </div>
     </div>
+    <script>
+        const display = document.querySelector('.display');
+        const buttons = document.querySelectorAll('button');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.textContent;
+                
+                if (value === 'C') {
+                    display.value = '';
+                } else if (value === '=') {
+                    try {
+                        display.value = eval(display.value);
+                    } catch {
+                        display.value = 'Error';
+                    }
+                } else {
+                    display.value += value;
+                }
+            });
+        });
+    </script>
 </body>
-</htmla>
+</html>
